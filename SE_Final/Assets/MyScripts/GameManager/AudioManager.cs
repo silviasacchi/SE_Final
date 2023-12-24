@@ -42,6 +42,19 @@ public void PlaySoundEffect(string clipName)
     }
 }
 
+   public void PlayBackgroundMusic(string BackGroundMusicClip)
+        {
+            AudioClip clip = FindClipByName(BackGroundMusicClip);
+            if (clip != null)
+            {
+                BackgroundMusic.clip = clip;
+                BackgroundMusic.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Background music not found: " + BackGroundMusicClip);
+            }
+        }
 private AudioClip FindClipByName(string clipName)
 {
     foreach(AudioClip clip in soundEffects)
