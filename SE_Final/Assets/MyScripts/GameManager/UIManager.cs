@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace GamneManager{
+namespace GameManager{
 public class UIManager : MonoBehaviour
 {
     public TMP_Text scoreText;
 
     public GameObject pauseMenu;
 
-    public voice UpdateScoreDisplay(int score) // I set up a score variable to show the score on the screen.
+    public void UpdateScoreText(int score) // I set up a score variable to show the score on the screen.
     {
         scoreText.text = "Score: " + score;
     }
    
-   public voide TogglePauseMenu(bool isPaused)
+   public void TogglePauseMenu(bool isPaused)
    {
        pauseMenu.SetActive(isPaused);
    }
