@@ -1,35 +1,28 @@
 // I created a disintagrating particle effect following the instructions provided during Lecture 5, as well as the following tutrial: https://www.youtube.com/watch?v=rL3H2ionaKg
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(XRGrabInteractable))]
-public class DisintegrationEffect : MonoBehaviour
+public class TouchParticleEffect : MonoBehaviour
 {
-    public ParticleSystem disintegrationParticles;
+    public ParticleSystem particleEffect;
 
-    private XRGrabInteractable grabInteractable;
+    private bool hasBeenTriggered = false;
 
-    voide Awake()
+    private void OnCollisionEnter(Collision collision)
     {
-        grabInteractable = GetComponent<XRGrabInteractable>();
-        grabInteractable.onSelectEnter.AddListener(StartDisintegration);
-        grabInteractable.onSelectExit.AddListener(StopDisintegration);
-    }
-
-    private void StartDisintegration(SelectEnterEventArgs args)
-    {
-        disintegrationParticles.Play();
-    }
-
-    private void StopDisintegration(SelectExitEventArgs args)
-    {
-        disintegrationParticles.Stop();
+        if (!hasBeenTriggered && (collision.gameObject.CompareTag("LeftHand Controller") || collision.gameObject.CompareTag("RightHand Controller")))
+        {
+            particleEffect.Play();
+            hasBeenTriggered = true;
+        }
     }
 
     private void OnDestroy()
     {
-        grabInteractable.onSelectEnter.RemoveListener(StartDisintegration);
-        grabInteractable.onSelectExit.RemoveListener(StopDisintegration);
+        particleEffect.Stop();
     }
 }
+
+
+
